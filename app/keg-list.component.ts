@@ -1,5 +1,5 @@
 import { Component, EventEmitter} from 'angular2/core';
-// import { KegComponent } from './keg.component';
+import { KegComponent } from './keg.component';
 import { Keg } from './keg.model';
 import { NewKegComponent } from './new-keg.component';
 
@@ -7,9 +7,13 @@ import { NewKegComponent } from './new-keg.component';
   selector: 'keg-list',
   inputs: ['kegList'],
   outputs: ['onKegSelect'],
-  directives: [NewKegComponent],
+  directives: [NewKegComponent, KegComponent],
   template: `
     <new-keg (onSubmitForm)="createKeg($event)"></new-keg>
+    <keg-display *ngFor="#currentKeg of kegList"
+      [class.selected]="currentKeg === selectedKeg"
+      [keg]="currentKeg">
+    </keg-display>
   `
 })
 
@@ -20,17 +24,10 @@ export class KegListComponent {
   constructor() {
     this.onKegSelect = new EventEmitter();
   }
-  createKeg(name: string, brand: string, price: number, alcoholContent: number): void {
+  createKeg(inputArray): void {
     this.kegList.push(
-      new Keg(name, brand, price, alcoholContent, this.kegList.length)
+      new Keg(inputArray[0], inputArray[1], inputArray[2], inputArray[3], this.kegList.length)
     );
     console.log(this.kegList);
   }
 }
-
-
-// <keg-display *ngFor="#currentKeg of kegList"
-//   (click)="kegClicked(currentKeg)"
-//   [class.selected]="currentKeg === selectedKeg"
-//   [keg]="currentKeg">
-// </keg-display>

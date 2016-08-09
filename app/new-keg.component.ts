@@ -21,9 +21,9 @@ import {Keg} from './keg.model';
     </div>
     <h3>Price</h3>
     <select class="filter" #addPrice>
-      <option value="#">Import</option>
-      <option value="#" selected="selected">Craft</option>
-      <option value="#">Domestic</option>
+      <option value="7">Import</option>
+      <option value="5" selected="selected">Craft</option>
+      <option value="4">Domestic</option>
     </select>
     <button (click)="addKeg(addName, addBrand, addPrice, addAlcoholContent)" class="btn-danger btn-lg add-button">Add</button>
   </div>
