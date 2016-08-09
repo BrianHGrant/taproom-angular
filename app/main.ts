@@ -1,4 +1,4 @@
 import {bootstrap}    from 'angular2/platform/browser'
-import {KegComponent} from './app.component'
+import {AppComponent} from './app.component'
 
-bootstrap(KegComponent);
+bootstrap(AppComponent);
