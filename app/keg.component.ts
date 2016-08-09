@@ -5,7 +5,7 @@ import { Keg } from './keg.model';
     selector: 'keg-display',
     inputs: ['keg'],
     template: `
-    <div>
+    <div [class.cheap]="keg.price < 5" [class.expensive]="keg.price >= 5">
       <p>Name: {{keg.name}} Brand: {{keg.brand}} Price: {{keg.price}} Alcohol Content: {{keg.alcoholContent}} Volume: {{keg.volume}}</p>
       <button *ngIf="keg.volume > 120" class="btn-primary" (click)="sellPint()">sell pint</button>
       <button *ngIf="keg.volume <= 120" class="btn-danger" (click)="sellPint()">Less than 120!</button>

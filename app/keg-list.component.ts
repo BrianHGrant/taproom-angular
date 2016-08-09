@@ -3,15 +3,21 @@ import { KegComponent } from './keg.component';
 import { Keg } from './keg.model';
 import { NewKegComponent } from './new-keg.component';
 import { EditKegDetailsComponent } from './edit-keg.component';
+import { HighAlcoholPipe } from './highAlcohol.pipe';
 
 @Component({
   selector: 'keg-list',
   inputs: ['kegList'],
   outputs: ['onKegSelect'],
+  pipes: [HighAlcoholPipe],
   directives: [EditKegDetailsComponent, NewKegComponent, KegComponent],
   template: `
+    <select (change)="onAlcoholContent($event.target.value)" class="filter">
+      <option value="low">Low</option>
+      <option value="high">High</option>
+    </select>
     <new-keg (onSubmitForm)="createKeg($event)"></new-keg>
-    <keg-display *ngFor="#currentKeg of kegList"
+    <keg-display *ngFor="#currentKeg of kegList | highAlcohol:alcoholContent"
       [class.selected]="currentKeg === selectedKeg"
       (click)="kegClicked(currentKeg)"
       [keg]="currentKeg">
@@ -38,5 +44,8 @@ export class KegListComponent {
       new Keg(inputArray[0], inputArray[1], inputArray[2], inputArray[3], this.kegList.length)
     );
     console.log(this.kegList);
+  }
+  onAlcoholContent(filterOption) {
+    alcoholContent = filterOption;
   }
 }
